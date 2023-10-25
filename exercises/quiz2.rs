@@ -37,9 +37,9 @@ mod my_module {
         for (string, command) in input.iter() {
             // TODO: Complete the function body. You can do it!
             output.push(match command {
-                Command::Trim => string.trim().into(),
-                Command::Uppercase => string.to_uppercase(),
                 Command::Append(n) => format!("{}{}", string, "bar".repeat(*n)),
+                Command::Uppercase => string.to_uppercase(),
+                Command::Trim => string.trim().into(),
             });
         }
 
