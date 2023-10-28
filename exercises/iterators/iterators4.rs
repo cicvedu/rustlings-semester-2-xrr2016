@@ -15,14 +15,24 @@ pub fn factorial(num: u64) -> u64 {
     // For an extra challenge, don't use:
     // - recursion
     // Execute `rustlings hint iterators4` for hints.
-    let res = vec![1, 1, 2];
+    let mut results = vec![0, 1, 1];
+    let start = 0;
+    let end = 1;
 
-    for v in 3..num {
-        // res.push(&res[v - 1] + &res[v - 2]);
-        println!("{}", &res[v]);
-    }
+    // while end < num - 1 {
+    let _res = &results[start..end].iter().fold(0, |acc, &x| {
+        let v = acc + &x;
+        // results.push();
+        println!("v: {:?}", v);
+        // println!("results: {:?}", results);
+        // acc + &x
+        v
+    });
+    // start += 1;
+    // end += 1;
+    // }
 
-    9
+    10
 }
 
 #[cfg(test)]
