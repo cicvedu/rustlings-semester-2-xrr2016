@@ -1,6 +1,7 @@
 //! This is the build script for both tests7 and tests8.
 //!
 //! You should modify this file to make both exercises pass.
+use std::env;
 
 fn main() {
     // In tests7, we should set up an environment variable
@@ -10,6 +11,7 @@ fn main() {
         .duration_since(std::time::UNIX_EPOCH)
         .unwrap()
         .as_secs(); // What's the use of this timestamp here?
+    env::set_var("TEST_FOO", format!("{}", timestamp));
     let your_command = format!(
         "Your command here with {}, please checkout exercises/tests/build.rs",
         timestamp
