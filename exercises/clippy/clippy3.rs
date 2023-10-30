@@ -22,5 +22,4 @@ fn main() {
     // value_a = value_b;
     // value_b = value_a;
     std::mem::swap(&mut value_a, &mut value_b);
-    println!("value a: {}; value b: {}", value_a, value_b);
 }
