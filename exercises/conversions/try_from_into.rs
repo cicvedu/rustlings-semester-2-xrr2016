@@ -27,8 +27,6 @@ enum IntoColorError {
     IntConversion,
 }
 
-// I AM NOT DONE
-
 // Your task is to complete this implementation and return an Ok result of inner
 // type Color. You need to create an implementation for a tuple of three
 // integers, an array of three integers, and a slice of integers.
@@ -41,6 +39,19 @@ enum IntoColorError {
 impl TryFrom<(i16, i16, i16)> for Color {
     type Error = IntoColorError;
     fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {
+        if tuple.0.is_negative() || tuple.1.is_negative() || tuple.2.is_negative() {
+            return Err(IntoColorError::IntConversion);
+        }
+
+        if tuple.0 > 255 || tuple.1 > 255 || tuple.2 > 255 {
+            return Err(IntoColorError::IntConversion);
+        }
+
+        Ok(Color {
+            red: u8::try_from(tuple.0).unwrap(),
+            green: u8::try_from(tuple.1).unwrap(),
+            blue: u8::try_from(tuple.2).unwrap(),
+        })
     }
 }
 
@@ -48,6 +59,17 @@ impl TryFrom<(i16, i16, i16)> for Color {
 impl TryFrom<[i16; 3]> for Color {
     type Error = IntoColorError;
     fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {
+        for v in arr.iter() {
+            if v.is_negative() || v.abs() > 255 {
+                return Err(IntoColorError::IntConversion);
+            }
+        }
+
+        Ok(Color {
+            red: u8::try_from(arr[0]).unwrap(),
+            green: u8::try_from(arr[1]).unwrap(),
+            blue: u8::try_from(arr[2]).unwrap(),
+        })
     }
 }
 
@@ -55,6 +77,25 @@ impl TryFrom<[i16; 3]> for Color {
 impl TryFrom<&[i16]> for Color {
     type Error = IntoColorError;
     fn try_from(slice: &[i16]) -> Result<Self, Self::Error> {
+        if slice.len() != 3 {
+            return Err(IntoColorError::BadLen);
+        }
+
+        for v in slice.iter() {
+            if v.is_negative() || v.abs() > 255 {
+                return Err(IntoColorError::IntConversion);
+            }
+
+            if v > &255 {
+                return Err(IntoColorError::IntConversion);
+            }
+        }
+
+        Ok(Color {
+            red: u8::try_from(slice[0]).unwrap(),
+            green: u8::try_from(slice[1]).unwrap(),
+            blue: u8::try_from(slice[2]).unwrap(),
+        })
     }
 }
 
