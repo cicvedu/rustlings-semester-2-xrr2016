@@ -22,8 +22,6 @@ unsafe fn raw_pointer_to_box(ptr: *mut Foo) -> Box<Foo> {
     // simply reconstruct the box from that pointer.
     let mut ret: Box<Foo> = unsafe { Box::from_raw(ptr) };
     // todo!("The rest of the code goes here");
-    // ret.b = Result::Some("hello");
-    println!("ret: {:?}", ret);
     ret
 }
 
